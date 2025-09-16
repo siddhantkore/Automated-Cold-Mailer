@@ -1,5 +1,8 @@
+<H1 align="center>
+
 # ReachEngine – Auto Cold Mailer  
 
+<H1>
 <p align="center">
   <b>Automated Cold Mailer</b> – A simple yet powerful tool for sending cold emails to clients, customers, and prospects.  
 </p>
@@ -10,7 +13,7 @@
 
 <p align="center">
 
-#### <p align="center"> _This is a utility tool i have developed for My Personal use. Now you can also configure free to use this tool_ </p>
+#### <p align="center"> _This is a utility tool I have developed for My Personal use. Now you can also configure free to use this tool_ </p>
 
 *<p align="center"> _**It will be helpful for programmers, Frelancers and customer requirement people**_  <p>
 
@@ -66,7 +69,8 @@ You can configure it to:
 ## Future Enhancements  
 
 - **Voice control system**  
-- **SMS sending support**  
+- **SMS sending support**
+- **WhatsApp and Telegram Bots**
 - **UI improvements** – Better alignment, responsive dashboard  
 - **Analytics** – Track email performance (open/click rates)  
 - **Authentication** – Secure access for multiple users  
@@ -77,8 +81,8 @@ You can configure it to:
 ## Clone the repository:
 
 ```
-git clone https://github.com/yourusername/reachengine.git
-cd reachengine
+git clone https://github.com/yourusername/Automated-Cold-Mailer.git
+cd Automated-Cold-Mailer
 ```
 
 ## Install Dependencies

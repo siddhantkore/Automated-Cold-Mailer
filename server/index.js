@@ -1,13 +1,24 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const messageRoutes = require('./routes/message.routes.js');
+const messageRoutes = require('./routes/messageRoutes.js');
+const cors = require('cors');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const app = express();
-const port = 3000;
 
+app.use(cors(corsOptions = {
+  origin: 'http://localhost:5173',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'], // Adjust this to your client's URL
+  optionsSuccessStatus: 200,
+}));
+
+
+const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
 
-app.use('/', messageRoutes);
+app.use('/api/', messageRoutes);
 
 app.listen(port, () => {
   console.log(`Backend server listening at http://localhost:${port}`);

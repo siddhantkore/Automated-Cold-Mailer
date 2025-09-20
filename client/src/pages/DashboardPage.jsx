@@ -12,7 +12,7 @@ const DashboardPage = () => {
 
   const generatePreview = async () => {
     try {
-      const response = await axios.post('/api/generate-content', {
+      const response = await axios.post('http://localhost:3000/api/generate-content', {
         whom,
         why,
       });
@@ -24,7 +24,7 @@ const DashboardPage = () => {
 
   const sendMessage = async () => {
     try {
-      const response = await axios.post('/api/send-message', {
+      const response = await axios.post('http://localhost:3000/api/send-message', {
         mail,
         mobile,
         whom,
@@ -40,7 +40,7 @@ const DashboardPage = () => {
       setPreview(null);
     } catch (error) {
       console.error('Error sending message:', error);
-      alert('Failed to send message. Please try again.');
+      alert('Failed to send message. Please try again.', error);
     }
   };
 

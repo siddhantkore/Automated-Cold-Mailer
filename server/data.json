@@ -1,10 +1,13 @@
 [
   {
-    "timestamp": "2025-09-15T21:24:47.943Z",
-    "email": "kore7447@gmail.com",
-    "mobile": "9090909090",
-    "whom": "megastorage2112@gmail.com",
-    "description": "ask about website for their hotel",
-    "sent": true
+    "mail": "@gmail.com",
+    "mobile": "1234567890",
+    "whom": "Yash",
+    "why": "asking them if they are intersted in joining the course course details link is as below\nexamplelink.com",
+    "preview": {
+      "subject": "Opportunity to Join Our Course",
+      "body": "Dear Yash,\n\nI hope this message finds you well. I am reaching out to see if you would be interested in joining our upcoming course. You can find the details at the following link: examplelink.com.\n\nLooking forward to your response.\n\nBest regards,\nSiddhant Kore"
+    },
+    "timestamp": "2025-09-20T00:16:19.909Z"
   }
 ]

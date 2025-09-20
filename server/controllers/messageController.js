@@ -1,11 +1,11 @@
 const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
-const generateContent = require('./llmCall')
 const dataPath = path.join(__dirname, '..', 'data.json');
 
 
 const sendMessage = async (req, res) => {
+  console.log("sendMessage hit:", req.body);
   const { mail, mobile, whom, why, preview } = req.body;
 
   if (!mail || !whom || !why || !preview) {
@@ -28,20 +28,26 @@ const sendMessage = async (req, res) => {
 
   // --- Send Email ---
   try {
-    const testAccount = await nodemailer.createTestAccount();
 
     const transporter = nodemailer.createTransport({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false,
+      host: process.env.EMAIL_HOST,
+      port: parseInt(process.env.EMAIL_PORT), // Port is a string, so parse it to an integer
+      secure: false, // Use 'false' for port 587 with STARTTLS
       auth: {
-        user: testAccount.user,
-        pass: testAccount.pass,
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
+    console.log("Email config:", {
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      user: process.env.EMAIL_USER,
+    });
+
+
     const info = await transporter.sendMail({
-      from: '"Your Name" <your.name@example.com>',
+      from: 'megastorage2112@gmail.com',
       to: mail,
       subject: preview.subject, // Using the generated subject
       text: preview.body, // Using the generated body

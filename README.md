@@ -3,6 +3,8 @@
 # ReachEngine – Auto Cold Mailer  
 
 <H1>
+
+<p>
 <p align="center">
   <b>Automated Cold Mailer</b> – A simple yet powerful tool for sending cold emails to clients, customers, and prospects.  
 </p>
@@ -10,7 +12,7 @@
 <p align="center">
   Built with ❤️ using <b>React</b>, <b>Node.js</b>, and <b>Material-UI</b>  
 </p>
-
+</p>
 <p align="center">
 
 #### <p align="center"> _This is a utility tool I have developed for My Personal use. Now you can also configure free to use this tool_ </p>

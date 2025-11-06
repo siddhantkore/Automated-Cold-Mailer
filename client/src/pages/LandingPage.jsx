@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const LandingPage = () => {
   return (
-    <Container>
+    <Container maxWidth="md">
       <Box
         sx={{
           display: 'flex',
@@ -15,10 +15,20 @@ const LandingPage = () => {
           textAlign: 'center',
         }}
       >
-        <Typography variant="h2" component="h1" gutterBottom>
+        <Typography
+          variant="h2"
+          component="h1"
+          gutterBottom
+          sx={{ fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' } }}
+        >
           Automated Cold Mail Sender
         </Typography>
-        <Typography variant="h5" component="h2" gutterBottom>
+        <Typography
+          variant="h5"
+          component="h2"
+          gutterBottom
+          sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}
+        >
           Generate personalized cold emails and SMS messages with the power of AI.
         </Typography>
         <Button
@@ -27,7 +37,7 @@ const LandingPage = () => {
           size="large"
           component={Link}
           to="/dashboard"
-          sx={{ mt: 4 }}
+          sx={{ mt: 4, width: { xs: '100%', sm: 'auto' } }}
         >
           Get Started
         </Button>

@@ -7,16 +7,18 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors(corsOptions = {
-  origin: 'http://localhost:5173',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'], // Adjust this to your client's URL
+// CORS: allow local development from any origin/hostname and handle preflight
+app.use(cors({
+  origin: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   optionsSuccessStatus: 200,
 }));
 
 
 const port = process.env.PORT || 3000;
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(express.json());
 
 app.use('/api/', messageRoutes);
 

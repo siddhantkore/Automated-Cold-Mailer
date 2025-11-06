@@ -3,10 +3,18 @@ const { OpenAI } = require('openai');
 const dotenv = require('dotenv');
 dotenv.config();
 
-// --- LLM Integration ---
-// Make sure to set the GEMINI_API_KEY environment variable
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-latest" });
+const geminiApiKey = process.env.GEMINI_API_KEY;
+if (!geminiApiKey) {
+  throw new Error('GEMINI_API_KEY environment variable is not set.');
+}
+
+const openaiApiKey = process.env.OPENAI_API_KEY;
+if (!openaiApiKey) {
+  throw new Error('OPENAI_API_KEY environment variable is not set.');
+}
+
+const genAI = new GoogleGenerativeAI(geminiApiKey);
+const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro-latest' });
 
 const generateContent = async (req, res) => {
   const { whom, why } = req.body;
@@ -33,21 +41,16 @@ const generateContent = async (req, res) => {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    // The model might return the JSON wrapped in markdown, so we need to clean it.
     const cleanedText = text.replace(/```json/g, '').replace(/```/g, '').trim();
     const generatedContent = JSON.parse(cleanedText);
-
     res.json({ preview: generatedContent });
-
   } catch (error) {
     console.error('Error generating content with LLM:', error);
     res.status(500).json({ error: 'Internal Server Error', details: error.message });
   }
 };
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 const generateColdEmail = async (req, res) => {
   const { whom, why } = req.body;
@@ -73,32 +76,27 @@ const generateColdEmail = async (req, res) => {
   `;
 
   try {
-    // The OpenAI API uses a different method for chat completions.
-    const response = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // Use a valid OpenAI model
+    const completion = await openai.chat.completions.create({
+      model: 'gpt-4o-mini',
       messages: [
         {
-          role: "system",
-          content: "You are a professional business email writer. Always respond with a valid JSON object.",
+          role: 'system',
+          content: 'You are a professional business email writer. Always respond with a valid JSON object.',
         },
-        {
-          role: "user",
-          content: prompt,
-        },
+        { role: 'user', content: prompt },
       ],
-      response_format: { type: "json_object" },
+      response_format: { type: 'json_object' },
     });
 
-    const generatedText = response.choices[0].message.content;
+    const generatedText = completion.choices[0].message.content;
     const generatedContent = JSON.parse(generatedText);
-
     res.json({ preview: generatedContent });
-
   } catch (error) {
     console.error('Error generating content with LLM:', error);
-    // Log the full error to the console for debugging
     res.status(500).json({ error: 'Internal Server Error', details: error.message });
   }
 };
 
-module.exports = { generateColdEmail, generateContent};
+module.exports = { generateColdEmail, generateContent };
+
+

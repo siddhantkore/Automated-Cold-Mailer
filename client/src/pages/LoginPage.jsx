@@ -4,36 +4,57 @@ import { TextField, Button, Typography, Container, Paper, Box } from '@mui/mater
 const LoginPage = () => {
   return (
     <Container maxWidth="xs">
-      <Paper sx={{ p: 4, mt: 8 }}>
-        <Typography variant="h5" component="h1" gutterBottom align="center">
-          Login
-        </Typography>
-        <Box component="form">
-          <TextField
-            label="Email Address"
-            type="email"
-            fullWidth
-            margin="normal"
-            required
-          />
-          <TextField
-            label="Password"
-            type="password"
-            fullWidth
-            margin="normal"
-            required
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            sx={{ mt: 3, mb: 2 }}
+      <Box sx={{ my: { xs: 4, md: 8 } }}>
+        <Paper
+          sx={{
+            p: { xs: 3, md: 4 },
+            border: '1px solid',
+            borderColor: 'divider',
+          }}
+        >
+          <Typography
+            variant="h5"
+            component="h1"
+            gutterBottom
+            align="center"
+            sx={{
+              fontWeight: 600,
+              mb: 3,
+              color: 'text.primary',
+            }}
           >
-            Sign In
-          </Button>
-        </Box>
-      </Paper>
+            Login
+          </Typography>
+          <Box component="form">
+            <TextField
+              label="Email Address"
+              type="email"
+              fullWidth
+              margin="normal"
+              required
+              variant="outlined"
+            />
+            <TextField
+              label="Password"
+              type="password"
+              fullWidth
+              margin="normal"
+              required
+              variant="outlined"
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              size="large"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Sign In
+            </Button>
+          </Box>
+        </Paper>
+      </Box>
     </Container>
   );
 };

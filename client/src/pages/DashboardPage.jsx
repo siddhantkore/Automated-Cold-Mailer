@@ -28,7 +28,7 @@ const DashboardPage = () => {
 
   const sendMessage = async () => {
     try {
-      const response = await axios.post('http://localhost:3000/api/send-message', {
+      const response = await axios.post('/api/send-message', {
         mail,
         mobile,
         whom,
@@ -54,18 +54,59 @@ const DashboardPage = () => {
   };
 
   return (
-    <Container maxWidth="md">
-      <Box sx={{ my: 4 }}>
-        <Typography variant="h4" component="h1" gutterBottom>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+        position: 'relative',
+        '&::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundImage: `
+            radial-gradient(circle at 20% 30%, rgba(30, 64, 175, 0.05) 0%, transparent 50%),
+            radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.05) 0%, transparent 50%)
+          `,
+          pointerEvents: 'none',
+        },
+      }}
+    >
+      <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
+        <Box sx={{ py: { xs: 3, md: 5 } }}>
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          sx={{
+            fontWeight: 600,
+            mb: 4,
+            color: 'text.primary',
+          }}
+        >
           Dashboard
         </Typography>
-        <Paper sx={{ p: 2 }}>
+        <Paper
+          sx={{
+            p: { xs: 2, md: 3 },
+            border: '1px solid',
+            borderColor: 'divider',
+            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+            backdropFilter: 'blur(10px)',
+          }}
+        >
+          <Typography variant="h6" gutterBottom sx={{ mb: 3, fontWeight: 600 }}>
+            Recipient Information
+          </Typography>
           <TextField
             label="Recipient Email"
             fullWidth
             margin="normal"
             value={mail}
             onChange={(e) => setMail(e.target.value)}
+            variant="outlined"
           />
           <TextField
             label="Recipient Mobile"
@@ -73,6 +114,7 @@ const DashboardPage = () => {
             margin="normal"
             value={mobile}
             onChange={(e) => setMobile(e.target.value)}
+            variant="outlined"
           />
           <TextField
             label="Whom to send?"
@@ -80,6 +122,7 @@ const DashboardPage = () => {
             margin="normal"
             value={whom}
             onChange={(e) => setWhom(e.target.value)}
+            variant="outlined"
           />
           <TextField
             label="Why to send?"
@@ -89,20 +132,37 @@ const DashboardPage = () => {
             margin="normal"
             value={why}
             onChange={(e) => setWhy(e.target.value)}
+            variant="outlined"
           />
           <Button
             variant="contained"
             color="primary"
             onClick={generatePreview}
-            sx={{ mt: 2 }}
+            sx={{ mt: 3 }}
+            fullWidth
+            size="large"
           >
             Generate Preview
           </Button>
         </Paper>
         {preview && (
-          <Paper sx={{ p: 2, mt: 4 }}>
-            <Typography variant="h5" component="h2" gutterBottom>
-              Preview
+          <Paper
+            sx={{
+              p: { xs: 2, md: 3 },
+              mt: 4,
+              border: '1px solid',
+              borderColor: 'divider',
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              backdropFilter: 'blur(10px)',
+            }}
+          >
+            <Typography
+              variant="h6"
+              component="h2"
+              gutterBottom
+              sx={{ mb: 3, fontWeight: 600 }}
+            >
+              Email Preview
             </Typography>
             <TextField
               label="Subject"
@@ -110,6 +170,7 @@ const DashboardPage = () => {
               margin="normal"
               value={editedSubject}
               onChange={(e) => setEditedSubject(e.target.value)}
+              variant="outlined"
             />
             <TextField
               label="Body"
@@ -119,19 +180,29 @@ const DashboardPage = () => {
               margin="normal"
               value={editedBody}
               onChange={(e) => setEditedBody(e.target.value)}
+              variant="outlined"
             />
-            <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', mt: 1 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                gap: 2,
+                flexWrap: 'wrap',
+                mt: 3,
+              }}
+            >
               <Button
                 variant="outlined"
                 color="primary"
                 onClick={generatePreview}
+                sx={{ flex: { xs: '1 1 100%', sm: '0 1 auto' } }}
               >
                 Regenerate
               </Button>
               <Button
                 variant="contained"
-                color="secondary"
+                color="primary"
                 onClick={sendMessage}
+                sx={{ flex: { xs: '1 1 100%', sm: '0 1 auto' } }}
               >
                 Send
               </Button>
@@ -139,20 +210,41 @@ const DashboardPage = () => {
           </Paper>
         )}
         {previewUrl && (
-          <Paper sx={{ p: 2, mt: 4 }}>
-            <Typography variant="h5" component="h2" gutterBottom>
+          <Paper
+            sx={{
+              p: { xs: 2, md: 3 },
+              mt: 4,
+              border: '1px solid',
+              borderColor: 'divider',
+              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+              backdropFilter: 'blur(10px)',
+            }}
+          >
+            <Typography variant="h6" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
               Email Preview
             </Typography>
-            <Typography variant="body1">
+            <Typography variant="body1" sx={{ mb: 2 }}>
               An email has been sent to a test account. You can view it at the following link:
             </Typography>
-            <Link href={previewUrl} target="_blank" rel="noopener">
+            <Link
+              href={previewUrl}
+              target="_blank"
+              rel="noopener"
+              sx={{
+                color: 'primary.main',
+                textDecoration: 'none',
+                '&:hover': {
+                  textDecoration: 'underline',
+                },
+              }}
+            >
               {previewUrl}
             </Link>
           </Paper>
         )}
-      </Box>
-    </Container>
+        </Box>
+      </Container>
+    </Box>
   );
 };
 

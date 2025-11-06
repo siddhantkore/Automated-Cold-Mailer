@@ -1,32 +1,34 @@
 import React from 'react';
-import { Typography, Box, Link } from '@mui/material';
+import { Typography, Box, Container } from '@mui/material';
 
 const Footer = () => {
   return (
     <Box
       sx={{
         py: 3,
-        px: 2,
         mt: 'auto',
-        backgroundColor: (theme) => theme.palette.grey[200],
+        backgroundColor: 'background.paper',
+        borderTop: '1px solid',
+        borderColor: 'divider',
       }}
     >
-      <Typography variant="body2" color="text.secondary" align="center">
-        {'Copyright © '}
-        <Link color="inherit" href="#">
-          Cold Mailer
-        </Link>{' '}
-        {new Date().getFullYear()}
-        {'.'}
-      </Typography>
-      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 1 }}>
-        <Link href="#" sx={{ mx: 1 }}>
-          Telegram Bot
-        </Link>
-        <Link href="#" sx={{ mx: 1 }}>
-          WhatsApp Bot
-        </Link>
-      </Box>
+      <Container maxWidth="lg">
+        <Typography variant="body2" color="text.secondary" align="center">
+          © {new Date().getFullYear()} Cold Mailer. All rights reserved.
+        </Typography>
+        <Typography variant="body2" color="text.secondary" align="center" sx={{ mt: 1 }}>
+          Built by{' '}
+          <Box
+            component="span"
+            sx={{
+              fontWeight: 500,
+              color: 'text.primary',
+            }}
+          >
+            Nival Cloud Solutions
+          </Box>
+        </Typography>
+      </Container>
     </Box>
   );
 };

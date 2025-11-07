@@ -38,8 +38,18 @@ const DashboardPage = () => {
           body: editedBody || preview?.body || '',
         },
       });
-      alert('Message sent and data saved successfully!');
-      setPreviewUrl(response.data.previewUrl);
+      
+      // Show detailed success message
+      const successMsg = response.data.message || 
+        `Emails sent to ${response.data.emailsSent || 0} recipient(s) successfully!`;
+      alert(successMsg);
+      
+      // Store preview URLs if available
+      if (response.data.previewUrls && response.data.previewUrls.length > 0) {
+        setPreviewUrl(response.data.previewUrls);
+      } else {
+        setPreviewUrl(null);
+      }
       setMail('');
       setMobile('');
       setWhom('');
@@ -101,12 +111,16 @@ const DashboardPage = () => {
             Recipient Information
           </Typography>
           <TextField
-            label="Recipient Email"
+            label="Recipient Email(s)"
             fullWidth
             margin="normal"
             value={mail}
             onChange={(e) => setMail(e.target.value)}
             variant="outlined"
+            multiline
+            rows={3}
+            placeholder="Enter one or more email addresses, separated by commas or new lines&#10;Example: email1@example.com, email2@example.com&#10;Or:&#10;email1@example.com&#10;email2@example.com"
+            helperText="You can enter multiple email addresses separated by commas or new lines"
           />
           <TextField
             label="Recipient Mobile"
@@ -221,25 +235,53 @@ const DashboardPage = () => {
             }}
           >
             <Typography variant="h6" component="h2" gutterBottom sx={{ fontWeight: 600 }}>
-              Email Preview
+              Email Preview URLs
             </Typography>
             <Typography variant="body1" sx={{ mb: 2 }}>
-              An email has been sent to a test account. You can view it at the following link:
+              {Array.isArray(previewUrl) 
+                ? `Preview links for ${previewUrl.length} email(s):`
+                : 'An email has been sent to a test account. You can view it at the following link:'}
             </Typography>
-            <Link
-              href={previewUrl}
-              target="_blank"
-              rel="noopener"
-              sx={{
-                color: 'primary.main',
-                textDecoration: 'none',
-                '&:hover': {
-                  textDecoration: 'underline',
-                },
-              }}
-            >
-              {previewUrl}
-            </Link>
+            {Array.isArray(previewUrl) ? (
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                {previewUrl.map((item, index) => (
+                  <Box key={index} sx={{ mb: 1 }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+                      {item.email}:
+                    </Typography>
+                    <Link
+                      href={item.previewUrl}
+                      target="_blank"
+                      rel="noopener"
+                      sx={{
+                        color: 'primary.main',
+                        textDecoration: 'none',
+                        '&:hover': {
+                          textDecoration: 'underline',
+                        },
+                      }}
+                    >
+                      {item.previewUrl}
+                    </Link>
+                  </Box>
+                ))}
+              </Box>
+            ) : (
+              <Link
+                href={previewUrl}
+                target="_blank"
+                rel="noopener"
+                sx={{
+                  color: 'primary.main',
+                  textDecoration: 'none',
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  },
+                }}
+              >
+                {previewUrl}
+              </Link>
+            )}
           </Paper>
         )}
         </Box>

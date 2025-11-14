@@ -137,6 +137,7 @@ const DashboardPage = () => {
             value={whom}
             onChange={(e) => setWhom(e.target.value)}
             variant="outlined"
+            placeholder='Name of Recipient'
           />
           <TextField
             label="Why to send?"
@@ -147,6 +148,7 @@ const DashboardPage = () => {
             value={why}
             onChange={(e) => setWhy(e.target.value)}
             variant="outlined"
+            placeholder='i.e. Subject'
           />
           <Button
             variant="contained"

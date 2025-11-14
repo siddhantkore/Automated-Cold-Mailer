@@ -89,6 +89,22 @@ git clone https://github.com/yourusername/Automated-Cold-Mailer.git
 cd Automated-Cold-Mailer
 ```
 
+## Configure Environment Variables
+Create a `.env` file in the `server` directory with the following content:
+```
+ENV=development
+PORT=3000
+
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=your_email
+EMAIL_PASS=your_email_password
+
+GEMINI_API_KEY=
+# or for OpenAI
+OPENAI_API_KEY=
+```
+
 ## Install Dependencies
 ```
 cd server && npm install

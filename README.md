@@ -1,3 +1,5 @@
+![ReachEngine Logo](/client/public/Automated%20Cold%20Mailer.png)
+
 <H1 align="center>
 
 # ReachEngine – Auto Cold Mailer  

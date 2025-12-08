@@ -52,6 +52,50 @@ const generateContent = async (req, res) => {
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
+// const generateColdEmail = async (req, res) => {
+//   const { whom, why } = req.body;
+
+//   if (!whom || !why) {
+//     return res.status(400).json({ error: 'Missing required fields: whom, why' });
+//   }
+
+//   const prompt = `
+//     Based on the following information, generate a professional and concise cold email.
+//     The output should be a Strictly JSON object with two fields: "subject" and "body".
+
+//     Recipient: "${whom}"
+//     Reason for contact: "${why}"
+
+//     Example JSON output:
+//     {
+//       "subject": "Collaboration Opportunity",
+//       "body": "Dear ${whom},\n\nI am writing to you today because..."
+//     }
+//     use best regards, Sincerely as 'Siddhant Kore' at end if required
+//     do not add any markdown, no any explaination nothing
+//   `;
+
+//   try {
+//     const completion = await openai.chat.completions.create({
+//       model: 'gpt-4o-mini',
+//       messages: [
+//         {
+//           role: 'system',
+//           content: 'You are a professional business email writer. Always respond with a valid JSON object.',
+//         },
+//         { role: 'user', content: prompt },
+//       ],
+//       response_format: { type: 'json_object' },
+//     });
+
+//     const generatedText = completion.choices[0].message.content;
+//     const generatedContent = JSON.parse(generatedText);
+//     res.json({ preview: generatedContent });
+//   } catch (error) {
+//     console.error('Error generating content with LLM:', error);
+//     res.status(500).json({ error: 'Internal Server Error', details: error.message });
+//   }
+// };
 const generateColdEmail = async (req, res) => {
   const { whom, why } = req.body;
 
@@ -61,42 +105,33 @@ const generateColdEmail = async (req, res) => {
 
   const prompt = `
     Based on the following information, generate a professional and concise cold email.
-    The output should be a Strictly JSON object with two fields: "subject" and "body".
+    The output must be strictly a JSON object with two fields: "subject" and "body".
+    No markdown, no extra explanation.
 
     Recipient: "${whom}"
     Reason for contact: "${why}"
 
-    Example JSON output:
+    Example JSON:
     {
       "subject": "Collaboration Opportunity",
-      "body": "Dear ${whom},\n\nI am writing to you today because..."
+      "body": "Dear ${whom},\\n\\nI am writing to you today because...\\n\\nSincerely,\\nSiddhant Kore"
     }
-    use best regards, Sincerely as 'Siddhant Kore' at end if required
-    do not add any markdown, no any explaination nothing
+    Use Best Regards or Sincerely with 'Siddhant Kore' at end.
   `;
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: [
-        {
-          role: 'system',
-          content: 'You are a professional business email writer. Always respond with a valid JSON object.',
-        },
-        { role: 'user', content: prompt },
-      ],
-      response_format: { type: 'json_object' },
-    });
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = response.text().trim();
+    const cleanedText = text.replace(/```json|```/g, '').trim();
+    const generatedContent = JSON.parse(cleanedText);
 
-    const generatedText = completion.choices[0].message.content;
-    const generatedContent = JSON.parse(generatedText);
     res.json({ preview: generatedContent });
   } catch (error) {
-    console.error('Error generating content with LLM:', error);
+    console.error('Error generating content with Gemini:', error);
     res.status(500).json({ error: 'Internal Server Error', details: error.message });
   }
 };
-
 module.exports = { generateColdEmail, generateContent };
 
 

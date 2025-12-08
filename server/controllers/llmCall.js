@@ -14,7 +14,8 @@ if (!openaiApiKey) {
 }
 
 const genAI = new GoogleGenerativeAI(geminiApiKey);
-const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro-latest' });
+// const model = genAI.getGenerativeModel({ model: 'gemini-1.5-pro-latest' });
+const model = genAI.getGenerativeModel({model:'gemini-1.5-flash'});
 
 const generateContent = async (req, res) => {
   const { whom, why } = req.body;

@@ -1,25 +1,19 @@
 ![ReachEngine Logo](/client/public/Automated%20Cold%20Mailer.png)
 
-<H1 align="center>
 
 # ReachEngine – Auto Cold Mailer  
 
-<H1>
 
-<p>
-<p align="center">
   <b>Automated Cold Mailer</b> – A simple yet powerful tool for sending cold emails to clients, customers, and prospects.  
-</p>
 
-<p align="center">
-  Built with ❤️ using <b>React</b>, <b>Node.js</b>, and <b>Material-UI</b>  
-</p>
-</p>
-<p align="center">
 
-#### <p align="center"> _This is a utility tool I have developed for My Personal use. Now you can also configure free to use this tool_ </p>
+### Built with ❤️ using <b>React</b>, <b>Node.js</b>, and <b>Material-UI</b>  
 
-*<p align="center"> _**It will be helpful for programmers, Frelancers and customer requirement people**_  <p>
+---
+
+### _This is a utility tool I have developed for My Personal use. Now you can also configure free to use this tool_
+
+_**It will be helpful for programmers, Frelancers and customer requirement people**_
 
 ## Overview  
 
@@ -124,4 +118,4 @@ npm run dev
 ```
 
 ## Author
-<p align="center"> Developed - <b>Siddhant Kore</b><br/> <a href="https://linkedin.com/in/siddhantkore0bb" target="_blank">🌐 Connect on LinkedIn</a> </p>
+<p align="center"> Developed By - <b>Siddhant Kore</b><br/> <a href="https://linkedin.com/in/siddhantkore0bb" target="_blank">🌐 Connect on LinkedIn</a> </p>
